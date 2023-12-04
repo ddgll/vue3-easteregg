@@ -1,6 +1,6 @@
 {
   "name": "vue3-easteregg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vue3 Component to easely add an easteregg to your website or webapp =)",
   "author": "David Grill <grilldotcom@gmail.com>",
   "main": "dist/Vue3Easteregg.ssr.js",
@@ -8,7 +8,8 @@
   "module": "dist/Vue3Easteregg.esm.js",
   "unpkg": "dist/Vue3Easteregg.min.js",
   "files": [
-    "dist/*", "src/**/*.vue"
+    "dist/*",
+    "src/**/*.vue"
   ],
   "sideEffects": false,
   "scripts": {
