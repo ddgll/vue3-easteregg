@@ -113,22 +113,22 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     }
   };
 }var script = /*#__PURE__*/vue.defineComponent({
-  name: 'easteregg',
+  name: "easteregg",
   // vue component name
-  props: ['eggs', 'duration'],
-  emits: ['easter'],
+  props: ["eggs", "duration"],
+  emits: ["easter"],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
         slots = _ref.slots;
     var timer,
-        buffer = '';
+        buffer = "";
     var chars = [];
     var visible = vue.ref(false);
-    var defaultEggs = ['ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba', 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightBA', '88224646ba', '88224646BA'];
+    var defaultEggs = ["ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba", "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightBA", "88224646ba", "88224646BA"];
 
     var resetBuffer = function resetBuffer() {
       if (timer) clearTimeout(timer);
-      buffer = '';
+      buffer = "";
     };
 
     var resetEasterEgg = function resetEasterEgg() {
@@ -136,16 +136,16 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
       visible.value = false;
     };
 
-    var err = 'Eggs property must be a String, an Array of char, an Array of string or an Array of Array of char';
+    var err = "Eggs property must be a String, an Array of char, an Array of string or an Array of Array of char";
 
     var getEggs = function getEggs() {
       if (!props.eggs || !props.eggs.length) return defaultEggs;
-      if (typeof props.eggs === 'string') return [props.eggs];
+      if (typeof props.eggs === "string") return [props.eggs];
 
       if (Array.isArray(props.eggs)) {
         return props.eggs.map(function (e) {
-          if (typeof e === 'string') return e;
-          if (Array.isArray(e)) return e.join('');
+          if (typeof e === "string") return e;
+          if (Array.isArray(e)) return e.join("");
           throw new Error(err);
         });
       }
@@ -166,12 +166,11 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var egg = _step.value;
-          console.log(buffer, '!==', egg, buffer !== egg);
           if (buffer !== egg) continue;
-          emit('easter', egg);
+          emit("easter", egg);
           visible.value = true;
           chars.length = 0;
-          buffer = '';
+          buffer = "";
           if (props.duration) setTimeout(resetEasterEgg, props.duration);
           return;
         }
@@ -185,15 +184,15 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     };
 
     vue.onMounted(function () {
-      return window.addEventListener('keyup', onKeyUp);
+      return window.addEventListener("keyup", onKeyUp);
     });
     vue.onBeforeUnmount(function () {
-      return window.removeEventListener('keyup', onKeyUp);
+      return window.removeEventListener("keyup", onKeyUp);
     });
     return function () {
-      return vue.h('div', {
-        class: ['Vue3Easteregg', {
-          'visible': visible.value
+      return vue.h("div", {
+        class: ["Vue3Easteregg", {
+          visible: visible.value
         }]
       }, slots.default ? slots.default() : null);
     };
@@ -223,8 +222,8 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
   } else {
     style.appendChild(document.createTextNode(css));
   }
-}var css_248z = "\n.Vue3Easteregg[data-v-29ecbf28] {\n    display: none;\n}\n.Vue3Easteregg.visible[data-v-29ecbf28] {\n    display: block;\n}\n";
-styleInject(css_248z);script.__scopeId = "data-v-29ecbf28";// Import vue component
+}var css_248z = "\n.Vue3Easteregg[data-v-12495b44] {\n  display: none;\n}\n.Vue3Easteregg.visible[data-v-12495b44] {\n  display: block;\n}\n";
+styleInject(css_248z);script.__scopeId = "data-v-12495b44";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
