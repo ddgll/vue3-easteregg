@@ -8,7 +8,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import minimist from 'minimist';
 
 // Get browserslist config and remove ie from es build targets
@@ -17,12 +17,17 @@ const esbrowserslist = fs.readFileSync('./.browserslistrc')
   .split('\n')
   .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
 
+import babelConfig from '../babel.config.js';
+
 // Extract babel preset-env config, to combine with esbrowserslist
-const babelPresetEnvConfig = require('../babel.config')
+const babelPresetEnvConfig = babelConfig
   .presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
+
+import { fileURLToPath } from 'url';
 
 const argv = minimist(process.argv.slice(2));
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
 const baseConfig = {

@@ -1,77 +1,64 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, h } from 'vue';
 
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
-function _createForOfIteratorHelper(o, allowArrayLike) {
-  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
-
-  if (!it) {
-    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-      if (it) o = it;
-      var i = 0;
-
-      var F = function () {};
-
+function _createForOfIteratorHelper(r, e) {
+  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (!t) {
+    if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) {
+      t && (r = t);
+      var n = 0,
+        F = function () {};
       return {
         s: F,
         n: function () {
-          if (i >= o.length) return {
+          return n >= r.length ? {
             done: true
-          };
-          return {
+          } : {
             done: false,
-            value: o[i++]
+            value: r[n++]
           };
         },
-        e: function (e) {
-          throw e;
+        e: function (r) {
+          throw r;
         },
         f: F
       };
     }
-
     throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
-
-  var normalCompletion = true,
-      didErr = false,
-      err;
+  var o,
+    a = true,
+    u = false;
   return {
     s: function () {
-      it = it.call(o);
+      t = t.call(r);
     },
     n: function () {
-      var step = it.next();
-      normalCompletion = step.done;
-      return step;
+      var r = t.next();
+      return a = r.done, r;
     },
-    e: function (e) {
-      didErr = true;
-      err = e;
+    e: function (r) {
+      u = true, o = r;
     },
     f: function () {
       try {
-        if (!normalCompletion && it.return != null) it.return();
+        a || null == t.return || t.return();
       } finally {
-        if (didErr) throw err;
+        if (u) throw o;
       }
     }
   };
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
 
 var script = /*#__PURE__*/defineComponent({
@@ -81,29 +68,24 @@ var script = /*#__PURE__*/defineComponent({
   emits: ["easter"],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
-        slots = _ref.slots;
+      slots = _ref.slots;
     var timer,
-        buffer = "";
+      buffer = "";
     var chars = [];
     var visible = ref(false);
     var defaultEggs = ["ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba", "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightBA", "88224646ba", "88224646BA"];
-
     var resetBuffer = function resetBuffer() {
       if (timer) clearTimeout(timer);
       buffer = "";
     };
-
     var resetEasterEgg = function resetEasterEgg() {
       resetBuffer();
       visible.value = false;
     };
-
     var err = "Eggs property must be a String, an Array of char, an Array of string or an Array of Array of char";
-
     var getEggs = function getEggs() {
       if (!props.eggs || !props.eggs.length) return defaultEggs;
       if (typeof props.eggs === "string") return [props.eggs];
-
       if (Array.isArray(props.eggs)) {
         return props.eggs.map(function (e) {
           if (typeof e === "string") return e;
@@ -111,20 +93,15 @@ var script = /*#__PURE__*/defineComponent({
           throw new Error(err);
         });
       }
-
       throw new Error(err);
     };
-
     var eggs = getEggs();
-
     var onKeyUp = function onKeyUp(e) {
       if (timer) clearTimeout(timer);
       chars.push(e.key);
       buffer = "".concat(buffer).concat(e.key);
-
       var _iterator = _createForOfIteratorHelper(eggs),
-          _step;
-
+        _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var egg = _step.value;
@@ -141,10 +118,8 @@ var script = /*#__PURE__*/defineComponent({
       } finally {
         _iterator.f();
       }
-
       timer = setTimeout(resetBuffer, 1000);
     };
-
     onMounted(function () {
       return window.addEventListener("keyup", onKeyUp);
     });
@@ -165,7 +140,7 @@ function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css || typeof document === 'undefined') { return; }
+  if (typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -194,19 +169,22 @@ styleInject(css_248z);
 script.__scopeId = "data-v-12495b44";
 
 // Import vue component
+
+// Default export is installable instance of component.
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
-
 var entry_esm = /*#__PURE__*/(function () {
   // Get component instance
-  var installable = script; // Attach install function executed by Vue.use()
+  var installable = script;
 
+  // Attach install function executed by Vue.use()
   installable.install = function (app) {
     app.component('easteregg', installable);
   };
-
   return installable;
-})(); // It's possible to expose named exports when writing components that can
+})();
+
+// It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = directive;
 
